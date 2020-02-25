@@ -5,7 +5,61 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
+
     <body>
-        <div></div>
+        <p>Sveicināti atmiņas spēlē!</p> 
+
+        <!-- Laukuma izmērs, Poga sākšanai -->
+        <div id="txt"> 
+            <p> Izvēlies laukuma izmērus! </p>
+            <input type="number" id="izmers" value="3" min="2" max="7">
+            <button type="submit" id="restarts" onClick="poga()">Sākt jaunu spēli</button>
+        </div>
+
+        <!-- Tabulas nodzēšana un jaunas uzzīmēšana -->
+        <script>
+            function poga() {
+                var r = document.getElementById("d");
+                if (r == null) {
+                    generet();
+                } else {
+                    remove();
+                    generet();
+                }
+            }
+
+            function remove() {
+                var t = document.getElementById("d");
+                document.body.removeChild(t);
+            }
+        </script>
+
+        <!-- Tabulas un pogu izveidošana -->
+        <script>
+            function generet() {
+                var divs = document.createElement('div');
+                divs.id = "d";
+                var table = document.createElement('table');
+                var tableBody = document.createElement('tbody');
+                var x = document.getElementById("izmers").value;
+
+                for (let i = 0; i < x; i++) {
+                    var row = document.createElement('tr');
+
+                    for (let j = 0; j < x; j++) {
+                        var cell = document.createElement('td');
+                        let poga = document.createElement("BUTTON");
+                        cell.appendChild(poga);
+                        row.appendChild(cell);
+                    }
+                    tableBody.appendChild(row);
+                }
+                table.appendChild(tableBody);
+                divs.appendChild(table);
+                document.body.appendChild(divs);
+            }
+        </script>
+
     </body>
+
 </html>
