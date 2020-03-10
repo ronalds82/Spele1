@@ -2,7 +2,9 @@ let karts = document.getElementsByClassName("kartis");
 let kartites = [...karts];
 let gajieni = 0;
 let gajienu_sk = document.querySelector(".gaj");
-let vienadas = document.getElementsByClassName("match");
+let vienadi = document.getElementsByClassName("match");
+
+const deck = document.getElementById("card-deck");
 
 var atvertas = [];
 var second = 0, minute = 0, hour = 0;
@@ -30,8 +32,13 @@ function samaisit(masivs) {
 }
 
 function saktSpeli() {
+    var r = document.getElementById("sec");
+    if (r != null) {
+        novakt();
+    }
+    
     atvertas = [];
-    kartites = shuffle(kartites);
+    kartites = samaisit(kartites);
 
     for (var i = 0; i < kartites.length; i++) {
         deck.innerHTML = "";
@@ -57,7 +64,7 @@ function generet() {
     var x = document.getElementById("izmers").value;
     var array = ["1", "2", "3", "4", "5", "6", "7", "8", "9",
         "10", "11", "12", "13", "14", "15", "16", "17", "18"];
-
+    
     if (x < 6) {
         var temp = [];
         var z = x*x;
@@ -72,10 +79,40 @@ function generet() {
     
     var array2 = array;
 
+    var sec=document.createElement('section');
+    sec.setAttribute("id", "sec");
+
     for (let i = 0; i < x; i++) {
+        var ul=document.createElement('ul');
+        ul.setAttribute("class", "deck");
+        ul.setAttribute("id", "card-deck");
+       
         for (let j = 0; j < x; j++) {
+            var li=document.createElement('li');
+            li.setAttribute("class", "card");
             
+            if(array.length == 0){
+                var a = Math.floor(Math.random()*array.length);
+                li.setAttribute("type", a);
+                array.pop(a);
+            } else {
+                var a = Math.floor(Math.random()*array2.length);
+                li.setAttribute("type", a);
+                array2.pop(a);
+            }  
+            ul.appendChild(li);
         }
+        
+        sec.appendChild(ul);
+    } 
+    
+    document.body.appendChild(sec);
+}
+
+function novakt(){
+    function remove() {
+        var t = document.getElementById("sec");
+        document.body.removeChild(t);
     }
 }
 
@@ -157,7 +194,7 @@ function laiks() {
 }
 
 function uzvara() {
-    if (vienadas.length == 16) {
+    if (vienadi.length == 16) {
         clearInterval(intervals);
         kop_laiks = taimeris.innerHTML;
 
