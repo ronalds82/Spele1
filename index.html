@@ -1,231 +1,37 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
+
     <head>
+        <meta charset="utf-8">
         <title>Spele by Ronalds 12a</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/style.css">
     </head>
 
     <body>
-        
+
         <p>Sveicināti atmiņas spēlē!</p> 
 
-        <!-- Laukuma izmērs, Poga sākšanai -->
-        <div id="txt"> 
-            <p> Izvēlies laukuma izmērus! </p>
-            <input type="number" id="izmers" value="4" min="2" max="8" step="2">
-            <button type="submit" id="restarts" onClick="poga()">Sākt jaunu spēli</button>
-        </div>
-
-        <!-- Spēles info -->
-        <div>
+        <!-- Laukuma izmēri, Info panelis, Poga spēles sākšanai-->
+        <div class="container">
             <section class="panelis">
-                <span class="gajieni">0</span> Gājieni
-                <div class="taimeris"></div>
+                <h2> Izvēlies laukuma izmērus! </h2>
+                <input type="number" id="izmers" value="4" min="2" max="6" step="2">
+                <button type="submit" id="restarts" onClick="saktSpeli()">Sākt jaunu spēli</button>
+
+                <p> Gājieni: <span class="gaj">0</span> </p>
+                <div class="timer"></div>
             </section>
-
-            <script>
-                var second = 0, minute = 0, hour = 0;
-                var timer = document.querySelector(".taimeris");
-                var interval;
-                let gajieni = 0;
-                let counter = document.querySelector(".gajieni");
-
-                function skaititajs() {
-                    gajieni++;
-                    counter.innerHTML = gajieni;
-
-                    if (gajieni == 1) {
-                        second = 0;
-                        minute = 0;
-                        hour = 0;
-                        startTimer();
-                    }
-                }
-
-                function startTimer() {
-                    interval = setInterval(function () {
-                        timer.innerHTML = hour + "h " + minute + "m " + second + "s ";
-                        second++;
-                        if (second == 60) {
-                            minute++;
-                            second = 0;
-                        }
-                        if (minute == 60) {
-                            hour++;
-                            minute = 0;
-                        }
-                    }, 1000);
-                }
-            </script>
         </div>
 
-        <!-- Tabulas nodzēšana un jaunas uzzīmēšana -->
-        <script>
-            function poga() {
-                var r = document.getElementById("d");
-                if (r == null) {
-                    generet();
-                } else {
-                    remove();
-                    generet();
-                }
-
-                let card = document.getElementsByClassName("card");
-                let cards = [...card];
-                let moves = 0;
-                let counter = document.querySelector(".moves");
-                let matchedCard = document.getElementsByClassName("match");
-                let modal = document.getElementById("popup1")
-
-                moves = 0;
-                counter.innerHTML = moves;
-
-                second = 0;
-                minute = 0;
-                hour = 0;
-                var timer = document.querySelector(".timer");
-                timer.innerHTML = hour + "h " + minute + "m " + second + "s ";
-                clearInterval(interval);
-
-                openedCards = [];
-
-                cards = shuffle(cards);
-
-                for (var i = 0; i < cards.length; i++) {
-                    deck.innerHTML = "";
-                    [].forEach.call(cards, function (item) {
-                        deck.appendChild(item);
-                    });
-                    cards[i].classList.remove("show", "open", "match", "disabled");
-                }
-
-                var sk = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"];
-                var sk1 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"];
-
-                function shuffle(array) {
-                    var currentIndex = array.length, temp, r_ind;
-
-                    while (currentIndex !== 0) {
-                        r_ind = Math.floor(Math.random() * currentIndex);
-                        currentIndex -= 1;
-                        temp = array[currentIndex];
-                        array[currentIndex] = array[r_ind];
-                        array[r_ind] = temp;
-                    }
-
-                    return array;
-                }
-            }
-
-            function remove() {
-                var t = document.getElementById("d");
-                document.body.removeChild(t);
-            }
-        </script>
-
-        <!-- Tabulas un pogu izveidošana -->
-        <script>
-            function generet() {
-                var divs = document.createElement('div');
-                divs.id = "d";
-                var table = document.createElement('table');
-                var tableBody = document.createElement('tbody');
-                var x = document.getElementById("izmers").value;
-                for (let i = 0; i < x; i++) {
-                    var row = document.createElement('tr');
-                    for (let j = 0; j < x; j++) {
-                        var cell = document.createElement('td');
-                        let poga = document.createElement("BUTTON");
-                        poga.onclick = () => {
-                            reakcija();
-                        }
-                        cell.appendChild(poga);
-                        row.appendChild(cell);
-                    }
-                    tableBody.appendChild(row);
-                }
-                table.appendChild(tableBody);
-                divs.appendChild(table);
-                document.body.appendChild(divs);
-            }
-        </script>
-
-        <!-- Pogu reakcija un pārbaude -->
-        <script>
-            function reakcija() {
-                openedCards.push(this);
-                var len = openedCards.length;
-                if (len === 2) {
-                    skaititajs();
-                    if (openedCards[0].type === openedCards[1].type) {
-                        vienadi();
-                    } else {
-                        dazadi();
-                    }
-                }
-            }
-
-            function vienadi() {
-                openedCards[0].classList.add("match", "disabled");
-                openedCards[1].classList.add("match", "disabled");
-                openedCards[0].classList.remove("show", "open", "no-event");
-                openedCards[1].classList.remove("show", "open", "no-event");
-                openedCards = [];
-            }
-
-            function dazadi() {
-                openedCards[0].classList.add("unmatched");
-                openedCards[1].classList.add("unmatched");
-                izslegtPogu();
-                setTimeout(function () {
-                    openedCards[0].classList.remove("show", "open", "no-event", "unmatched");
-                    openedCards[1].classList.remove("show", "open", "no-event", "unmatched");
-                    ieslegtPogu();
-                    openedCards = [];
-                }, 1100);
-            }
-
-            function izslegtPogu() {
-                Array.prototype.filter.call(cards, function (card) {
-                    card.classList.add('disabled');
-                });
-            }
-
-            function ieslegtPogu() {
-                Array.prototype.filter.call(cards, function (card) {
-                    card.classList.remove('disabled');
-                    for (var i = 0; i < matchedCard.length; i++) {
-                        matchedCard[i].classList.add("disabled");
-                    }
-                });
-            }
-        </script>
-
-        <!-- Spēles uzvara -->
+        <!-- Info par uzvaru -->
         <div id="uzlec" class="overlay" style="display:none">
-            <div class="uzlec">
-                <h2>Apsveicu! Esat uzvarējis! :)</h2>
-
-                <div class="lauks2">
-                    <p>Jūs izdarījāt <span id=kop_skaits> </span> gājienus! </p>
-                    <p>Kopējais laiks: <span id=kop_laiks> </span> </p>
-                </div>
-            </div>
-
-            <script>
-                function uzvara() {
-                    if (vienado_sk.length == 16) {
-                        clearInterval(interval);
-                        kop_laiks = timer.innerHTML;
-
-                        document.getElementById("uzlec").style.display = "block";
-                        document.getElementById("kop_skaits").innerHTML = gajieni;
-                        document.getElementById("kop_laiks").innerHTML = kop_laiks;
-                    }
-                }
-            </script>
+            <h2>Apsveicu! Esat uzvarējis!</h2>
+            <p>Jūs izdarījāt <span id=kop_sk> </span> gājienus!</p>
+            <p>Kopējais laiks: <span id=kop_l> </span> </p>
         </div>
+
+        <!-- JavaScript fails ar funkcijām -->
+        <script src="js/code.js"></script>
 
     </body>
 
