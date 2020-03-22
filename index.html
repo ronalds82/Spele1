@@ -8,23 +8,26 @@
     </head>
 
     <body>
-
-        <p>Sveicināti atmiņas spēlē!</p> 
-
+        
         <!-- Laukuma izmēri, Info panelis, Poga spēles sākšanai-->
         <div class="container">
             <section class="panelis">
+                <header>
                 <h2> Izvēlies laukuma izmērus! </h2>
+                </header>
                 <input type="number" id="izmers" value="4" min="2" max="6" step="2">
                 <button type="submit" id="restarts" onClick="saktSpeli()">Sākt jaunu spēli</button>
 
                 <p> Gājieni: <span class="gaj">0</span> </p>
                 <div class="timer"></div>
             </section>
+            
+            <div id="div"></div>
+            
         </div>
-
+        
         <!-- Info par uzvaru -->
-        <div id="uzlec" class="overlay" style="display:none">
+        <div id="uzlec" style="display:none">
             <h2>Apsveicu! Esat uzvarējis!</h2>
             <p>Jūs izdarījāt <span id=kop_sk> </span> gājienus!</p>
             <p>Kopējais laiks: <span id=kop_l> </span> </p>

@@ -11,10 +11,72 @@ var second = 0, minute = 0, hour = 0;
 var taimeris = document.querySelector(".timer");
 var intervals;
 
-var paradit = function () {
+var paradit = function(){
+    console.log("paradit")
     this.classList.toggle("open");
     this.classList.toggle("show");
     this.classList.toggle("disabled");
+    console.log(this.classList)
+};
+
+function generet() {
+
+    var x = document.getElementById("izmers").value;
+    var array = ["1", "2", "3", "4", "5", "6", "7", "8", "9",
+        "10", "11", "12", "13", "14", "15", "16", "17", "18"];
+
+    if (x < 6) {
+        var temp = [];
+        for(var i = 0; i < x*x/2; i++){
+            var a = Math.floor(Math.random()*array.length);
+            temp.push(array[a]);
+            array.splice(a, 1);
+        }
+        array = temp;
+    }
+    
+    var array2 = array.slice(0);
+
+    var ul = document.createElement('ul');
+    ul.setAttribute("class", "deck");
+    ul.setAttribute("id", "card-deck");
+    
+    for (let j = 0; j < x*x; j++) {
+        var li = document.createElement('li');
+        li.setAttribute("class", "kartis");
+
+        if (array.length !== 0) {
+            var a = Math.floor(Math.random() * array.length);
+            li.setAttribute("type", array[a]);
+            array.splice(a, 1);
+        } else {
+            var a = Math.floor(Math.random() * array2.length);
+            li.setAttribute("type", array2[a]);
+            array2.splice(a, 1);
+        }
+        
+        li.addEventListener("click", paradit);
+        li.addEventListener("click", atvert);
+        li.addEventListener("click", uzvara);
+        
+        if(x == 2){
+             li.style.width = "275px";
+             li.style.height = "275px";
+        } else if (x == 4){
+             li.style.width = "135px";
+             li.style.height = "135px";
+        } else {
+             li.style.width = "80px";
+             li.style.height = "80px";
+        }
+       
+        
+        ul.appendChild(li);
+    }   
+    
+    document.getElementById('div').appendChild(ul); 
+    karts = document.getElementsByClassName("kartis");
+    kartites = [...karts]; 
 }
 
 function samaisit(masivs) {
@@ -27,26 +89,24 @@ function samaisit(masivs) {
         masivs[currentIndex] = masivs[ind];
         masivs[ind] = temp;
     }
-
     return masivs;
 }
 
 function saktSpeli() {
-    var r = document.getElementById("sec");
+    var r = document.getElementById("card-deck");
+    
     if (r != null) {
-        novakt();
+        var t = document.getElementById('div');
+        t.removeChild(r);
+        
+        var x = document.getElementById('uzlec').style.display;
+        if(x == "block"){
+            document.getElementById('uzlec').style.display = "none";
+        }
     }
     
-    atvertas = [];
-    kartites = samaisit(kartites);
-
-    for (var i = 0; i < kartites.length; i++) {
-        deck.innerHTML = "";
-        [].forEach.call(kartites, function (item) {
-            deck.appendChild(item);
-        });
-        kartites[i].classList.remove("show", "open", "match", "disabled");
-    }
+    generet();
+    samaisit(kartites);
 
     gajieni = 0;
     gajienu_sk.innerHTML = gajieni;
@@ -56,68 +116,11 @@ function saktSpeli() {
     hour = 0;
     taimeris.innerHTML = hour + "h " + minute + "m " + second + "s";
     clearInterval(intervals);
-
-
-}
-
-function generet() {
-    var x = document.getElementById("izmers").value;
-    var array = ["1", "2", "3", "4", "5", "6", "7", "8", "9",
-        "10", "11", "12", "13", "14", "15", "16", "17", "18"];
-    
-    if (x < 6) {
-        var temp = [];
-        var z = x*x;
-        for(let y = 0; y < x*x; y++){
-            var a = Math.floor(Math.random()*z);
-            temp.push(array[a]);
-            array.pop(a);
-            z -= 1;
-        }
-        array = temp;
-    }
-    
-    var array2 = array;
-
-    var sec=document.createElement('section');
-    sec.setAttribute("id", "sec");
-
-    for (let i = 0; i < x; i++) {
-        var ul=document.createElement('ul');
-        ul.setAttribute("class", "deck");
-        ul.setAttribute("id", "card-deck");
-       
-        for (let j = 0; j < x; j++) {
-            var li=document.createElement('li');
-            li.setAttribute("class", "card");
-            
-            if(array.length == 0){
-                var a = Math.floor(Math.random()*array.length);
-                li.setAttribute("type", a);
-                array.pop(a);
-            } else {
-                var a = Math.floor(Math.random()*array2.length);
-                li.setAttribute("type", a);
-                array2.pop(a);
-            }  
-            ul.appendChild(li);
-        }
-        
-        sec.appendChild(ul);
-    } 
-    
-    document.body.appendChild(sec);
-}
-
-function novakt(){
-    function remove() {
-        var t = document.getElementById("sec");
-        document.body.removeChild(t);
-    }
 }
 
 function atvert() {
     atvertas.push(this);
+    this.innerHTML = this.type;
     var len = atvertas.length;
 
     if (len === 2) {
@@ -148,20 +151,20 @@ function dazadas() {
         atvertas[1].classList.remove("show", "open", "no-event", "unmatched");
         ieslegt();
         atvertas = [];
-    }, 1100);
+    }, 1000);
 }
 
 function izslegt() {
-    Array.prototype.filter.call(cards, function (card) {
-        card.classList.add('disabled');
+    Array.prototype.filter.call(kartites, function (karts) {
+        karts.classList.add('disabled');
     });
 }
 
 function ieslegt() {
-    Array.prototype.filter.call(cards, function (card) {
-        card.classList.remove('disabled');
-        for (var i = 0; i < matchedCard.length; i++) {
-            matchedCard[i].classList.add("disabled");
+    Array.prototype.filter.call(kartites, function (karts) {
+        karts.classList.remove('disabled');
+        for (var i = 0; i < vienadi.length; i++) {
+            vienadi[i].classList.add("disabled");
         }
     });
 }
@@ -179,7 +182,7 @@ function skaititajs() {
 }
 
 function laiks() {
-    intervals = setInterval(function () {
+    intervals = setInterval(function() {
         taimeris.innerHTML = hour + "h " + minute + "m " + second + "s";
         second++;
         if (second == 60) {
@@ -194,19 +197,12 @@ function laiks() {
 }
 
 function uzvara() {
-    if (vienadi.length == 16) {
+    if (vienadi.length == kartites.length) {
         clearInterval(intervals);
         kop_laiks = taimeris.innerHTML;
 
         document.getElementById("uzlec").style.display = "block";
-        document.getElementById("kop_sk").innerHTML = moves;
+        document.getElementById("kop_sk").innerHTML = gajieni;
         document.getElementById("kop_l").innerHTML = kop_laiks;
     }
-}
-
-for (var i = 0; i < kartites.length; i++) {
-    karts = kartites[i];
-    karts.addEventListener("click", paradit);
-    karts.addEventListener("click", atvert);
-    karts.addEventListener("click", uzvara);
 }
