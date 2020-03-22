@@ -99,9 +99,9 @@ function saktSpeli() {
         var t = document.getElementById('div');
         t.removeChild(r);
         
-        var x = document.getElementById('uzlec').style.display;
+        var x = document.getElementById('uzv').style.display;
         if(x == "block"){
-            document.getElementById('uzlec').style.display = "none";
+            document.getElementById('uzv').style.display = "none";
         }
     }
     
@@ -201,7 +201,7 @@ function uzvara() {
         clearInterval(intervals);
         kop_laiks = taimeris.innerHTML;
 
-        document.getElementById("uzlec").style.display = "block";
+        document.getElementById("uzv").style.display = "block";
         document.getElementById("kop_sk").innerHTML = gajieni;
         document.getElementById("kop_l").innerHTML = kop_laiks;
     }

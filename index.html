@@ -7,30 +7,31 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
 
-    <body>
+    <body bgcolor="#9cd2db">
         
         <!-- Laukuma izmēri, Info panelis, Poga spēles sākšanai-->
         <div class="container">
-            <section class="panelis">
-                <header>
-                <h2> Izvēlies laukuma izmērus! </h2>
-                </header>
+            <div class="panelis">
+                <h2> Atmiņas spēle </h2>
+                <p> Izvēlies laukuma izmērus! </p>
                 <input type="number" id="izmers" value="4" min="2" max="6" step="2">
                 <button type="submit" id="restarts" onClick="saktSpeli()">Sākt jaunu spēli</button>
 
                 <p> Gājieni: <span class="gaj">0</span> </p>
-                <div class="timer"></div>
-            </section>
+                <p> Laiks: <span class="timer">0h 0m 0s</span> </p>
+                <br>
+            </div>
             
             <div id="div"></div>
             
         </div>
         
         <!-- Info par uzvaru -->
-        <div id="uzlec" style="display:none">
+        <div id="uzv" style="display:none">
             <h2>Apsveicu! Esat uzvarējis!</h2>
-            <p>Jūs izdarījāt <span id=kop_sk> </span> gājienus!</p>
+            <p>Jūs veicāt <span id=kop_sk> </span> gājienus!</p>
             <p>Kopējais laiks: <span id=kop_l> </span> </p>
+            <br>
         </div>
 
         <!-- JavaScript fails ar funkcijām -->
