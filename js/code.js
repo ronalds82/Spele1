@@ -242,11 +242,35 @@ function inputval(){
         return false;
     }
     
-    if (!/^\d{4}\-\d{1,2}\-\d{1,2}$/.test(document.form1.datums.value)) {
+    if (!DateValid(document.form1.datums.value)) {
         alert('Laukā "Datums" ir jāievada pareizs datums!');
         return false;
     }
     
     alert('Jūsu ievadītā informācija ir reģistrēta!');
     return true;
+}
+
+function DateValid(d){
+    if (!/^\d{4}\-\d{1,2}\-\d{1,2}$/.test(d)) {
+        return false;
+    }
+
+    var x = d.split("-");
+    var year_x = parseInt(x[0], 10);
+    var month_x = parseInt(x[1], 10);
+    var day_x = parseInt(x[2], 10);
+    var monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    if (year_x % 400 === 0 || (year_x % 100 !== 0 && year_x % 4 === 0))
+        monthLength[1] = 29;
+
+    if (year_x < 2020) {
+        return false;
+    } else if (month_x > 12 || month_x <= 0) {
+        return false;
+    } else if (day_x <= 0 || day_x > monthLength[month_x - 1]) {
+        return false;
+    } else
+        return true;
 }
