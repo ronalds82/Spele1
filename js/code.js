@@ -11,12 +11,18 @@ var second = 0, minute = 0, hour = 0;
 var taimeris = document.querySelector(".timer");
 var intervals;
 
+window.onload = function(){
+    document.getElementById("close").onclick = function(){
+        this.parentElement.style.display = "none";
+    };
+};
+
+
+//Spēles funkcionalitāte
 var paradit = function(){
-    console.log("paradit")
     this.classList.toggle("open");
     this.classList.toggle("show");
     this.classList.toggle("disabled");
-    console.log(this.classList)
 };
 
 function generet() {
@@ -60,21 +66,21 @@ function generet() {
         li.addEventListener("click", uzvara);
         
         if(x == 2){
-             li.style.width = "275px";
-             li.style.height = "275px";
+             li.style.width = "210px";
+             li.style.height = "210px";
         } else if (x == 4){
-             li.style.width = "135px";
-             li.style.height = "135px";
+             li.style.width = "100px";
+             li.style.height = "100px";
         } else {
-             li.style.width = "80px";
-             li.style.height = "80px";
+             li.style.width = "65px";
+             li.style.height = "65px";
         }
        
         
         ul.appendChild(li);
     }   
     
-    document.getElementById('div').appendChild(ul); 
+    document.getElementById("spele").appendChild(ul); 
     karts = document.getElementsByClassName("kartis");
     kartites = [...karts]; 
 }
@@ -95,27 +101,32 @@ function samaisit(masivs) {
 function saktSpeli() {
     var r = document.getElementById("card-deck");
     
-    if (r != null) {
-        var t = document.getElementById('div');
+    if (r !== null) {
+        var t = document.getElementById("spele");
         t.removeChild(r);
         
-        var x = document.getElementById('uzv').style.display;
-        if(x == "block"){
-            document.getElementById('uzv').style.display = "none";
+        var x = document.getElementById("uzv").style.display;
+        if(x === "block"){
+            document.getElementById("uzv").style.display = "none";
         }
     }
     
-    generet();
-    samaisit(kartites);
+    if(document.getElementById("izmers").value >= 2 && document.getElementById("izmers").value <= 6) {
+        generet();
+        samaisit(kartites);
 
-    gajieni = 0;
-    gajienu_sk.innerHTML = gajieni;
+        gajieni = 0;
+        gajienu_sk.innerHTML = gajieni;
 
-    second = 0;
-    minute = 0;
-    hour = 0;
-    taimeris.innerHTML = hour + "h " + minute + "m " + second + "s";
-    clearInterval(intervals);
+        second = 0;
+        minute = 0;
+        hour = 0;
+        taimeris.innerHTML = hour + "h " + minute + "m " + second + "s";
+        clearInterval(intervals);
+    } else {
+        alert("Nepareizi ievadīts laukuma izmērs! Tam jābūt 2, 4 vai 6");
+    }
+     
 }
 
 function atvert() {
@@ -169,11 +180,13 @@ function ieslegt() {
     });
 }
 
+
+//Spēlētāja rādītāji
 function skaititajs() {
     gajieni++;
     gajienu_sk.innerHTML = gajieni;
 
-    if (gajieni == 1) {
+    if (gajieni === 1) {
         second = 0;
         minute = 0;
         hour = 0;
@@ -185,19 +198,21 @@ function laiks() {
     intervals = setInterval(function() {
         taimeris.innerHTML = hour + "h " + minute + "m " + second + "s";
         second++;
-        if (second == 60) {
+        if (second === 60) {
             minute++;
             second = 0;
         }
-        if (minute == 60) {
+        if (minute === 60) {
             hour++;
             minute = 0;
         }
     }, 1000);
 }
 
+
+//Uzvaras noteikšana
 function uzvara() {
-    if (vienadi.length == kartites.length) {
+    if (vienadi.length === kartites.length) {
         clearInterval(intervals);
         kop_laiks = taimeris.innerHTML;
 
@@ -205,4 +220,33 @@ function uzvara() {
         document.getElementById("kop_sk").innerHTML = gajieni;
         document.getElementById("kop_l").innerHTML = kop_laiks;
     }
+}
+
+
+//Lauku validācija
+function inputval(){ 
+    var burti = /^[a-zA-Z]+$/;
+    
+    if(!document.form1.vards.value.match(burti)){
+        alert('Laukā "Vārds" drīkst būt ievadīti tikai lielie un mazie burti!');
+        return false;
+    }
+    
+    if (!document.form1.uzvards.value.match(burti)){
+        alert('Laukā "Uzvārds" drīkst būt ievadīti tikai lielie un mazie burti!');
+        return false;
+    }
+    
+    if (isNaN(parseInt(document.form1.vecums.value)) || document.form1.vecums.value < 0 || document.form1.vecums.value > 100){
+        alert('Laukā "Vecums" drīkst būt ievadīti skaitļi no 0 līdz 100');
+        return false;
+    }
+    
+    if (!/^\d{4}\-\d{1,2}\-\d{1,2}$/.test(document.form1.datums.value)) {
+        alert('Laukā "Datums" ir jāievada pareizs datums!');
+        return false;
+    }
+    
+    alert('Jūsu ievadītā informācija ir reģistrēta!');
+    return true;
 }
