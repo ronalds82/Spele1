@@ -3,20 +3,20 @@ let kartites = [...karts];
 let gajieni = 0;
 let gajienu_sk = document.querySelector(".gaj");
 let vienadi = document.getElementsByClassName("match");
-
 const deck = document.getElementById("card-deck");
-
 var atvertas = [];
 var second = 0, minute = 0, hour = 0;
 var taimeris = document.querySelector(".timer");
 var intervals;
 
-window.onload = function(){
-    document.getElementById("close").onclick = function(){
-        this.parentElement.style.display = "none";
-    };
-};
-
+$(document).ready(function(){
+  $("#close").click(function(){ 
+    $(".gaj").text("0");
+    $(".timer").text("0h 0m 0s");
+    $("#uzv").hide();
+    $(".deck").hide();
+  });
+});
 
 //Spēles funkcionalitāte
 var paradit = function(){
@@ -100,7 +100,7 @@ function samaisit(masivs) {
 
 function saktSpeli() {
     var r = document.getElementById("card-deck");
-    
+
     if (r !== null) {
         var t = document.getElementById("spele");
         t.removeChild(r);
