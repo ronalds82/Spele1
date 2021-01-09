@@ -18,7 +18,7 @@ body {
 .container > .bg-overlay {
    display: flex;
    flex-wrap: wrap;
-   flex-direction: row;
+   flex-direction: column;
    padding-top: 30px;
    background-color: rgba(37, 1, 54, 0.6); 
    height: 96.8%;
@@ -34,6 +34,7 @@ body {
     background-color: #98db07;
     border-radius: 5px;
     box-shadow: 8px 9px 26px 0 rgba(46, 61, 73, 0.5);
+    margin-bottom: 25px;
 }
 
 #izmers {
@@ -71,6 +72,10 @@ body {
 
 
 /* Spēles laukums */
+#spele {
+    position: relative;
+}
+
 .deck {
     background: #5d8cc2;
     padding: 1rem;
@@ -81,7 +86,6 @@ body {
     justify-content: space-around;
     align-items: center;
     margin: 0 0 3em;
-    margin-top: -15px;
 }
 
 .kartis {
@@ -135,15 +139,16 @@ body {
 
 
 /* Uzvara */
-#uzv {
+#spele > #uzv {
    display: none;
    position: absolute;
-   top: 45%;
-   left: 8%;
+   top: 9%;
+   left: 11%;
    padding: 20px;
    padding-right: 50px;
    background-color: gold;
    border-radius: 5px;
+   z-index: 1;
 }
 
 #uzv img {
@@ -178,8 +183,9 @@ body {
     background-color: #42aaf5;
     border-radius: 5px;
     box-shadow: 8px 9px 26px 0 rgba(46, 61, 73, 0.5);
-    margin-left: 300px;
+    margin-left: 200px;
     padding: 20px;
+    margin-bottom: 40px;
 }
 
 
@@ -189,8 +195,8 @@ body {
     background-color: #42aaf5;
     border-radius: 5px;
     box-shadow: 8px 9px 26px 0 rgba(46, 61, 73, 0.5);
-    margin-left: 300px;
-    padding: 20px;
+    margin-left: 200px;
+    padding: 20px 20px 45px 20px;
     margin-top: -15px;
     font-style: normal;
     position: relative;
@@ -228,11 +234,13 @@ body {
 #video {
     padding-top: 80px;
     padding-bottom: 75px;
-    font-size: 20px;
-    color: navy;
     display: flex;
     align-items: center;
     flex-direction: column;
+}
+
+#video h1 {
+   color: navy; 
 }
 
 #autors {
@@ -263,7 +271,8 @@ body {
 
 
 
-@media (min-width: 700px) {
+/* Responsive CSS */
+@media only screen and (min-width: 1400px) {
     .deck {
         width: 458px;
         height: 458px;
@@ -288,9 +297,57 @@ body {
         width: 700px;
         height: 425px;
     }
+}
 
-    .kartis {
-        height: 100px;
-        width: 100px;
+
+@media only screen and (max-width: 1400px) {
+    .container {
+        height: 205vh;
+    }
+    
+    .container > .bg-overlay {
+        width: 100%;
+        height: 98.4%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding-left: 0px;
+    }
+ 
+    .deck {
+        width: 458px;
+        height: 458px;
+    }
+    
+    #spele {
+        width: 490px;
+        height: 490px;
+    }
+    
+    .panelis {
+        width: 450px;
+        height: 275px;
+    }
+    
+    #form {
+        width: 450px;
+        height: 275px;
+        margin-left: 0px;
+        margin-top: 10px;
+    }
+    
+    #teksts {
+        width: 450px;
+        height: 500px;
+        margin-left: 0px;
+    }
+    
+    iframe {
+        width: 300px;
+        height: 200px;
+    }
+    
+    #video h1 {
+        font-size: 30px;
     }
 }
