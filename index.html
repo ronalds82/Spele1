@@ -25,46 +25,51 @@
                     <p> Laiks: <span class="timer">0h 0m 0s</span> </p>
                 </div>
 
+                <!-- Spēles laukums -->
+                <div id="spele">                    
+                    <!-- Info par uzvaru -->
+                    <div id="uzv">
+                        <h2>Apsveicu! Esat uzvarējis!</h2>
+                        <p>Jūs veicāt <span id=kop_sk> </span> gājienus!</p>
+                        <p>Kopējais laiks: <span id=kop_l> </span> </p>
+                        <span id="close">&times;</span>
+                        <img src="https://media.giphy.com/media/aLdiZJmmx4OVW/giphy.gif" alt="error">
+                    </div>  
+                </div>
+                
                 <!-- Forma aizpildīšanai -->
                 <div id="form">
-                    <form name="form1" method="post" target="https://www.w3schools.com/action_page.php">
+                    <form name="form1" method="post" action="https://www.w3schools.com/action_page.php"
+                          onsubmit="return inputval();">
                         <h3>Informācija par mājaslapas apmeklētāju:</h3>
 
                         <table>
                             <tr>
-                                <td><label>Vārds:</label><br>
-                                    <input type="text" id="vards" value=""><br><br>
+                                <td>
+                                    <label for="vards">Vārds:</label><br>
+                                    <input type="text" id="vards" name="vards" value=""><br><br>
                                 </td>
-                                <td class="col2"><label>Uzvārds:</label><br>
-                                    <input type="text" id="uzvards" value=""><br><br>
+                                <td class="col2">
+                                    <label for="uzvards">Uzvārds:</label><br>
+                                    <input type="text" id="uzvards" name="uzvards" value=""><br><br>
                                 </td>
                             </tr>
 
                             <tr>
-                                <td><label>Vecums:</label><br>
-                                    <input type="number" id="vecums" value="" min="0" max="100"><br><br>
+                                <td>
+                                    <label for="vecums">Vecums:</label><br>
+                                    <input type="number" id="vecums" name="vecums" value="" min="0" max="100"><br><br>
                                 </td>
-                                <td class="col2"><label>Datums:</label><br> 
-                                    <input type="text" id="datums" placeholder="YYYY-MM-DD"><br><br>
+                                <td class="col2">
+                                    <label for="datums">Datums:</label><br> 
+                                    <input type="text" id="datums" name="datums" placeholder="YYYY-MM-DD"><br><br>
                                 </td>
                             </tr>
                         </table>
 
-                        <input type="submit" class="button" value="Apstiprināt" onclick="inputval()">
+                        <input type="submit" class="button" value="Apstiprināt">
                     </form> 
                 </div> 
-
-                <!-- Spēles laukums -->
-                <div id="spele"></div>
-
-                <!-- Info par uzvaru -->
-                <div id="uzv">
-                    <h2>Apsveicu! Esat uzvarējis!</h2>
-                    <p>Jūs veicāt <span id=kop_sk> </span> gājienus!</p>
-                    <p>Kopējais laiks: <span id=kop_l> </span> </p>
-                    <span id="close">&times;</span>
-                    <img src="https://media.giphy.com/media/aLdiZJmmx4OVW/giphy.gif" alt="error">
-                </div>      
 
                 <!-- Informācija -->
                 <div id="teksts">
@@ -94,14 +99,14 @@
         </div>
 
         <div id="video">
-            <h1>Pamācība mājaslapu izgatavošanā</h1>
+            <h1>Pamācība mājaslapu izveidošanā</h1>
             <iframe src="https://www.youtube.com/embed/PlxWf493en4" height="600" width="1000" title="Iframe Example"></iframe> 
         </div>    
 
         <div id="autors">
             <p> Mājaslapas autors: Ronalds Turnis, rt20018 <br> Latvijas Universitāte, 2021.gadā </p>
         </div>
-        
+
         <!-- JavaScript fails ar funkcijām un jQuery -->
         <script src="js/code.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
