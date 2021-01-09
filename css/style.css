@@ -20,44 +20,48 @@ body {
    flex-wrap: wrap;
    flex-direction: column;
    padding-top: 30px;
-   background-color: rgba(37, 1, 54, 0.6); 
+   background-color: rgba(37, 1, 54, 0.5); 
    height: 96.8%;
    width: 94.7%;
-   padding-left: 100px;
+   padding-left: 150px;
 }
 
+.panelis, .deck, #teksts, #form {
+    border-radius: 5px;
+    box-shadow: 8px 9px 26px 0 rgba(255, 255, 255, 0.3);
+}
+
+#form, #teksts {
+    background-color: #42aaf5;
+    margin-left: 100px;
+}
 
 
 /* Panelis */
 .panelis {
     padding: 20px;
     background-color: #98db07;
-    border-radius: 5px;
-    box-shadow: 8px 9px 26px 0 rgba(46, 61, 73, 0.5);
     margin-bottom: 25px;
+}
+
+.button, #izmers {
+    border: none;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
 }
 
 #izmers {
     background-color: white;
-    border: none;
     color: black;
     padding: 15px 10px;
-    text-align: center;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
 }
 
 .button {
     background-color: #009933;
-    border: none;
     color: white;
     padding: 15px 30px;
-    text-align: center;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
     cursor: pointer;
 }
 
@@ -76,30 +80,27 @@ body {
     position: relative;
 }
 
+.deck, .kartis {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+}
+
 .deck {
     background: #5d8cc2;
     padding: 1rem;
-    border-radius: 5px;
-    box-shadow: 8px 9px 26px 0 rgba(46, 61, 73, 0.5);
-    display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    align-items: center;
     margin: 0 0 3em;
 }
 
 .kartis {
-    height: 45px;
-    width: 45px;
-    margin: 3px;
     background: #3333cc;
+    margin: 3px;
     font-size: 0;
     color: #ffffff;
-    border-radius: 5px;
     cursor: pointer;
-    display: flex;
     justify-content: center;
-    align-items: center;
     box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
 
@@ -118,17 +119,18 @@ body {
     font-size: 33px;
 }
 
-.match {
-    cursor: default;
-    background: #009933;
-    font-size: 33px;
+.match, .unmatched {
     animation-name: pulse;
     animation-duration: .75s;
 }
 
+.match {
+    cursor: default;
+    background: #009933;
+    font-size: 33px;
+}
+
 .unmatched {
-    animation-name: pulse;
-    animation-duration: .75s;
     background: #cc3300;
 }
 
@@ -180,10 +182,6 @@ body {
 }
 
 #form {
-    background-color: #42aaf5;
-    border-radius: 5px;
-    box-shadow: 8px 9px 26px 0 rgba(46, 61, 73, 0.5);
-    margin-left: 200px;
     padding: 20px;
     margin-bottom: 40px;
 }
@@ -192,28 +190,28 @@ body {
 
 /* Teksts */
 #teksts {
-    background-color: #42aaf5;
-    border-radius: 5px;
-    box-shadow: 8px 9px 26px 0 rgba(46, 61, 73, 0.5);
-    margin-left: 200px;
     padding: 20px 20px 45px 20px;
     margin-top: -15px;
     font-style: normal;
     position: relative;
 }
 
-#teksts ul, #teksts a {
+#teksts ol, #teksts a {
     color: #962f06;
     text-decoration: none;
 }
 
 #teksts > a {
-    background-color: #2b7a0b;
+    background-color: #009933;
     color: white;
     padding: 13px;
     border-radius: 20px;
     position: absolute;
     left: 40%;
+}
+
+#teksts > a:hover {
+    background-color: #007124;
 }
 
 #teksts .bold {
@@ -225,7 +223,7 @@ body {
 }
 
 .list li {
-    color: #0a8500;
+    color: #035719;
 }
 
 
@@ -299,7 +297,6 @@ body {
     }
 }
 
-
 @media only screen and (max-width: 1400px) {
     .container {
         height: 205vh;
@@ -333,7 +330,7 @@ body {
         width: 450px;
         height: 275px;
         margin-left: 0px;
-        margin-top: 10px;
+        margin-top: 30px;
     }
     
     #teksts {
@@ -349,5 +346,9 @@ body {
     
     #video h1 {
         font-size: 30px;
+    }
+    
+    #teksts > a {
+        left: 35%;
     }
 }
